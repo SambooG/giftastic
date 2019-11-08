@@ -47,7 +47,7 @@ function giphyInfo(){
   method: "GET",
 })
 .then(function(response){
-  console.log("response");
+  console.log(response);
   var topicDiv = $("<div class='topic'>");
 
   var rating = response.Rated;
@@ -67,8 +67,8 @@ function renderButtons(){
   $("#buttons").empty();
 
     // Loops through the array of topics
+    let topics = ("Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off");
     for (var i = 0; i < topics.length; i++) {
-
       // Then dynamicaly generates buttons for each topic in the array
       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
       var a = $("<button>");
@@ -82,4 +82,4 @@ function renderButtons(){
       $("#buttons").append(a);
     }
   }
-
+renderButtons();
