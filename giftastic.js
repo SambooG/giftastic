@@ -17,59 +17,40 @@
     //     }
     // });
     
+// $(".topic").click(giphyInfo);
     
-// let topics = ("Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off");
-// // Write your actual code below
-// var url = "https://api.giphy.com/v1/gifs/search?limit=10&q=" + topics + "&api_key=1JgZ7zJzRQyi6ykHxyuaaRypiysOaUQm";
-// console.log("AM I INCLUDED");
-// $.ajax({
-//   url: url,
-//   method: "GET",
-//  sucess:function(response){
-//     console.log(response)
-//     for(let i = 0; i < topics.length; i++){
-//       $(this).attr("data-name")
-//       var b = $("<button>");
-//       b.addClass("topic");
-//       b.attr("data-name", topics[i]);
-//       b.text(topics[i]);
-//       $("#buttons").append(b);
-//     }
-//     }
-// });
-// // giphyButtons();
-function giphyInfo(){
-  let topics = ("Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off");
-  var url = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=1JgZ7zJzRQyi6ykHxyuaaRypiysOaUQm&limit10";
-  console.log();
+
+const topics = ["Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off"];
+
+$(".topic").click(function(){
+  let topic = $(this).text();
+  var url = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=1JgZ7zJzRQyi6ykHxyuaaRypiysOaUQm&limit=10";
+  console.log(url);
   ajax({
-  url: url,
-  method: "GET",
-})
-.then(function(response){
-  console.log(response);
-  var topicDiv = $("<div class='topic'>");
-
-  var rating = response.Rated;
-
-  var pRating = $("<p>").text("Rating: "+ rating);
-
-  topicDiv.append(pRating);
-
-  var images = $("<img>").attr("src", imgURL);
-  
-  topicDive.append(image);
+    url: url,
+    method: "GET",
+    success: function(response){
+      console.log(response);
+      var topicDiv = $("<div class='topic'>");
+      
+      var rating = response.rated;
+      
+      var pRating = $("<p>").text("Rating: "+ rating);
+      
+      topicDiv.append(pRating);
+      
+      var images = $("<img>").attr("src", imgURL);
+      
+      topicDiv.append(images);  
+  }
+  })  
 });
-}
-
-
-function renderButtons(){
-  $("#buttons").empty();
-
+  function renderButtons(){
+    $("#buttons").empty();
     // Loops through the array of topics
-    let topics = ("Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off");
+    let topics = ["Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off"];
     for (var i = 0; i < topics.length; i++) {
-      // Then dynamicaly generates buttons for each topic in the array
+      //Then dynamicaly generates buttons for each topic in the array
       // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
       var a = $("<button>");
       // Adds a class of topic to our button
@@ -82,4 +63,9 @@ function renderButtons(){
       $("#buttons").append(a);
     }
   }
-renderButtons();
+  $("#add-topic").on("click", function(event){
+    let topic = $("#topic").val().trim();
+    topics.push(topic)
+  });
+  
+  renderButtons();
