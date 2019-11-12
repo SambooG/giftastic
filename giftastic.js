@@ -19,53 +19,96 @@
     
 // $(".topic").click(giphyInfo);
     
+//do I need the for loop in the function?
 
-const topics = ["Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off"];
+$(document).on("click", ".topic-btn", getGiphs);
 
-$(".topic").click(function(){
-  let topic = $(this).text();
+$(document).on("click", ".topic-image", handleImageClick);
+
+function handleImageClick(){
+  let currentState = $(this).attr("data-state");
+  let stillUrl = $(this).attr("data-still");
+  let animatedUrl = $(this).attr("data-animate");
+  // console.log(currentState);
+  
+  if(currentState === "still"){
+    $(this).attr("src", animatedUrl);
+    $(this).attr("data-state", "animated")
+  }
+  if (currentState === "animated") {
+    $(this).attr("src", stillUrl);
+    $(this).attr("data-state", "still")
+  }
+}
+
+function getGiphs(){
+$("#container").empty(); //should I have the click here or separate? should it just be function(giphy){}
+console.log("I'm here!");
+let topic = $(this).text(); 
   var url = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=1JgZ7zJzRQyi6ykHxyuaaRypiysOaUQm&limit=10";
   console.log(url);
-  ajax({
+  $.ajax({
     url: url,
     method: "GET",
     success: function(response){
-      console.log(response);
-      var topicDiv = $("<div class='topic'>");
-      
-      var rating = response.rated;
-      
-      var pRating = $("<p>").text("Rating: "+ rating);
-      
-      topicDiv.append(pRating);
-      
-      var images = $("<img>").attr("src", imgURL);
-      
-      topicDiv.append(images);  
-  }
-  })  
-});
-  function renderButtons(){
-    $("#buttons").empty();
-    // Loops through the array of topics
-    let topics = ["Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off"];
-    for (var i = 0; i < topics.length; i++) {
-      //Then dynamicaly generates buttons for each topic in the array
-      // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-      var a = $("<button>");
-      // Adds a class of topic to our button
-      a.addClass("topic-btn");
-      // Added a data-attribute
-      a.attr("data-name", topics[i]);
-      // Provided the initial button text
-      a.text(topics[i]);
-      // Added the button to the buttons-view div
-      $("#buttons").append(a);
+      console.log("RESPONSE:! ", response);
+      const dataArray = response.data;
+      for (let i = 0; i < dataArray.length; i++) {
+        const imageObj = dataArray[i];
+
+        var rating = imageObj.rating;
+        var stillImageUrl = imageObj.images.fixed_height_still.url;
+        var animatedImageUrl = imageObj.images.fixed_height.url;
+        var topicDiv = $("<div class='topic'>");
+        
+        
+        var pRating = $("<p>").text("Rating: "+ rating);
+        
+        topicDiv.append(pRating);
+        
+        var image = $("<img>").attr("src", stillImageUrl);
+        image.addClass("topic-image");
+        image.attr("data-still", stillImageUrl);
+        image.attr("data-animate", animatedImageUrl);
+        image.attr("data-state", "still")
+
+        
+        topicDiv.append(image);  
+
+        $("#container").append(topicDiv);
+
+      }
     }
+  })  
+}
+
+const topics = ["Rick and Morty", "Modern Family", "family Guy", "The Sopranos", "Sex and the City", "Insecure", "The real housewives of Atlanta", "Ferris Buellers day off"];
+
+function renderButtons(){
+  $("#buttons").empty();
+  // Loops through the array of topics
+  for (var i = 0; i < topics.length; i++) {
+    //Then dynamicaly generates buttons for each topic in the array
+    // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+    var a = $("<button>");
+    // Adds a class of topic to our button
+    a.addClass("topic-btn");
+    // Added a data-attribute
+    a.attr("data-name", topics[i]);
+    // Provided the initial button text
+    a.text(topics[i]);
+    // Added the button to the buttons-view div
+    $("#buttons").append(a);
+    console.log("MY BUTTON!")
   }
-  $("#add-topic").on("click", function(event){
-    let topic = $("#topic").val().trim();
-    topics.push(topic)
-  });
-  
+}
+
+$("#add-topic").on("click", function(event){
+
+  let topic = $("#topic").val().trim();
+  console.log("new-topic: ", topic);
+  topics.push(topic);
   renderButtons();
+});
+
+renderButtons();
