@@ -103,6 +103,7 @@ function renderButtons(){
   }
 }
 
+
 $("#add-topic").on("click", function(event){
 
   let topic = $("#topic").val().trim();
