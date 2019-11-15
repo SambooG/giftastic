@@ -1,6 +1,58 @@
 header{
     text-align: center;
     text-emphasis-style: bold;
-    font-size: 40px;
+    font-size: 60px;
     color: purple;
+}
+
+
+@media only screen and (max-width: 768px) {
+    body {background: rgb(233, 200, 228);}
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    body {background: lightblue;}
+}
+#add-topic{
+    align-content: center;
+    background-color:  rgba(0,0,0,0.57);
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+}
+#add-topic:hover{
+    background: rgb(199, 40, 165);
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgb(199, 40, 165);
+    -moz-box-shadow: 0px 5px 40px -10px rgb(199, 40, 165);
+    box-shadow: 5px 40px -10px rgb(199, 40, 165);
+    transition: all 0.4s ease 0s;
+}
+.topic-btn {
+    background-color:  rgb(199, 40, 165);
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+.topic-btn:hover {
+    background: #434343;
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.4s ease 0s;
+    }
+#buttons{
+    text-align: center;
+}
+
+p{
+    font-weight: bold;
+    color: grey;
+    text-align: center;
+}
+
+#container{
+    text-align: center;
 }
