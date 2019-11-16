@@ -111,7 +111,9 @@ $("#add-topic").on("click", function(event){
   $("#topic").val(""); 
   localStorage.clear(); 
   localStorage.setItem("#topic", topic);
-  $("#container").text(localStorage.getItem("topic"));
+  $("#buttons").text(localStorage.getItem("#topic"));
+  // $("#buttons").text = $("#topic").topic
+  // I can see the new button info in the local storage, but I can't get it to print to the screen.
   renderButtons();
 });
 
