@@ -56,3 +56,11 @@ p{
 #container{
     text-align: center;
 }
+
+body{
+    background-image: url('—Pngtree—hexagonal\ white\ background_1151583.png') ;
+}
+footer{
+    position: fixed;
+    font-size: 8px;
+}
