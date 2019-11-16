@@ -91,7 +91,7 @@ function renderButtons(){
     //Then dynamicaly generates buttons for each topic in the array
     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
     var a = $("<button>");
-    // Adds a class of topic to our button
+    // Adds a class of topic-btn to our button
     a.addClass("topic-btn");
     // Added a data-attribute
     a.attr("data-name", topics[i]);
@@ -105,10 +105,13 @@ function renderButtons(){
 
 
 $("#add-topic").on("click", function(event){
-
   let topic = $("#topic").val().trim();
   console.log("new-topic: ", topic);
   topics.push(topic);
+  $("#topic").val(""); 
+  localStorage.clear(); 
+  localStorage.setItem("#topic", topic);
+  $("#container").text(localStorage.getItem("topic"));
   renderButtons();
 });
 
